@@ -117,13 +117,13 @@ impl Board {
         if !(1..=3).contains(&row) {
             Err(BoardError::RangeError {
                 min: 1,
-                max: 9,
+                max: 3,
                 value: row,
             })
-        } else if !(1..3).contains(&column) {
+        } else if !(1..=3).contains(&column) {
             Err(BoardError::RangeError {
                 min: 1,
-                max: 9,
+                max: 3,
                 value: column,
             })
         } else {
