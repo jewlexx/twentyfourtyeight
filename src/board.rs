@@ -88,6 +88,8 @@ impl Board {
 mod tests {
     use super::*;
 
+    // Rust incorrectly warns about dead code in the following two declarations
+    #[allow(dead_code)]
     const CELLS: [Cell; 9] = [
         Cell::Filled(1),
         Cell::Filled(2),
@@ -100,6 +102,7 @@ mod tests {
         Cell::Filled(9),
     ];
 
+    #[allow(dead_code)]
     static BOARD: Board = Board { cells: CELLS };
 
     #[test]
