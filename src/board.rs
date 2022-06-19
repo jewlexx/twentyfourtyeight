@@ -49,8 +49,16 @@ impl Board {
         Ok(board)
     }
 
-    pub fn get_filled(&self) -> usize {
-        self.cells.iter().filter(|c| c.is_filled()).count()
+    pub fn get_filled(&self) -> Vec<Cell> {
+        self.cells
+            .iter()
+            .filter(|c| c.is_filled())
+            .copied()
+            .collect()
+    }
+
+    pub fn get_filled_count(&self) -> usize {
+        self.get_filled().len()
     }
 
     pub const fn get_cells(&self) -> &[Cell; 9] {
@@ -168,6 +176,19 @@ mod tests {
 
     #[allow(dead_code)]
     static BOARD: Board = Board { cells: CELLS };
+
+    #[test]
+    fn test_gen_board() {
+        let board = Board::gen_new().unwrap();
+
+        assert_eq!(board.get_filled_count(), 2);
+
+        let filled = board.get_filled();
+
+        assert!(filled[0].get_value() == Some(2) || filled[0].get_value() == Some(4));
+
+        assert!(filled[1].get_value() == Some(2) || filled[1].get_value() == Some(4));
+    }
 
     #[test]
     fn test_new() {
