@@ -15,7 +15,7 @@ impl Cell {
         cell
     }
 
-    pub fn empty() -> Self {
+    pub const fn empty() -> Self {
         Cell::Empty
     }
 

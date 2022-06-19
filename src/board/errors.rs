@@ -10,4 +10,17 @@ pub enum BoardError {
         max: usize,
         value: usize,
     },
+
+    #[error("Had error at cell {row} {column}")]
+    CellError {
+        row: usize,
+        column: usize,
+        error: CellError,
+    },
+}
+
+#[derive(Debug, AsError, PartialEq, Eq)]
+pub enum CellError {
+    #[error("No value")]
+    NoValue,
 }

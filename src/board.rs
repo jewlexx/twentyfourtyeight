@@ -1,6 +1,8 @@
 mod cell;
 mod errors;
 
+use rand::Rng;
+
 pub use cell::*;
 use errors::*;
 
@@ -16,6 +18,39 @@ impl Board {
 
     pub const fn empty() -> Self {
         Board::new([Cell::Empty; 9])
+    }
+
+    pub fn gen_new() -> Result<Self> {
+        let mut board = Board::empty();
+
+        let mut rng = rand::thread_rng();
+
+        let index = {
+            let row = rng.gen_range(1..=3);
+            let column = rng.gen_range(1..=3);
+
+            (row, column)
+        };
+
+        let mut second_index = index;
+
+        while second_index == index {
+            second_index = {
+                let row = rng.gen_range(1..=3);
+                let column = rng.gen_range(1..=3);
+
+                (row, column)
+            };
+        }
+
+        board.gen_cell(index.0, index.1)?;
+        board.gen_cell(second_index.0, second_index.1)?;
+
+        Ok(board)
+    }
+
+    pub fn get_filled(&self) -> usize {
+        self.cells.iter().filter(|c| c.is_filled()).count()
     }
 
     pub const fn get_cells(&self) -> &[Cell; 9] {
@@ -67,6 +102,49 @@ impl Board {
             })
         } else {
             Ok(self.cells[(row - 1) * 3 + column - 1])
+        }
+    }
+
+    pub fn gen_cell(&mut self, row: usize, column: usize) -> Result<()> {
+        if !(1..=3).contains(&row) {
+            Err(BoardError::RangeError {
+                min: 1,
+                max: 9,
+                value: row,
+            })
+        } else if !(1..3).contains(&column) {
+            Err(BoardError::RangeError {
+                min: 1,
+                max: 9,
+                value: column,
+            })
+        } else {
+            let mut cell = self.get_cell(row, column)?;
+            cell.gen_filled_cell();
+
+            self.set_cell(row, column, cell)?;
+
+            Ok(())
+        }
+    }
+
+    pub fn set_cell(&mut self, row: usize, column: usize, value: Cell) -> Result<()> {
+        if !(1..=3).contains(&row) {
+            Err(BoardError::RangeError {
+                min: 1,
+                max: 9,
+                value: row,
+            })
+        } else if !(1..3).contains(&column) {
+            Err(BoardError::RangeError {
+                min: 1,
+                max: 9,
+                value: column,
+            })
+        } else {
+            self.cells[(row - 1) * 3 + column - 1] = value;
+
+            Ok(())
         }
     }
 }
