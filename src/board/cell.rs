@@ -48,3 +48,49 @@ impl Cell {
         }
     }
 }
+
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_empty() {
+        let empty = Cell::empty();
+
+        assert_eq!(empty, Cell::Empty);
+    }
+
+    #[test]
+    fn test_filled() {
+        let mut filled = Cell::empty();
+
+        filled.gen_filled_cell();
+
+        assert!(filled.is_filled());
+    }
+
+    #[test]
+    fn test_get_value() {
+        let mut rng = rand::thread_rng();
+
+        let value = if rng.gen_bool(0.5) { 2 } else { 4 };
+
+        let mut filled = Cell::empty();
+
+        filled.set_value(value);
+
+        assert_eq!(filled.get_value(), Some(value));
+    }
+
+    #[test]
+    fn test_set_value() {
+        let mut rng = rand::thread_rng();
+
+        let value = if rng.gen_bool(0.5) { 2 } else { 4 };
+
+        let mut filled = Cell::empty();
+
+        filled.set_value(value);
+
+        assert_eq!(filled.get_value(), Some(value));
+    }
+}
