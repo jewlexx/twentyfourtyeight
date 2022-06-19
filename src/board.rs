@@ -20,10 +20,22 @@ pub enum Cell {
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Board {
-    pub cells: [Cell; 9],
+    cells: [Cell; 9],
 }
 
 impl Board {
+    pub const fn new(cells: [Cell; 9]) -> Self {
+        Board { cells }
+    }
+
+    pub const fn empty() -> Self {
+        Board::new([Cell::Empty; 9])
+    }
+
+    pub const fn get_cells(&self) -> &[Cell; 9] {
+        &self.cells
+    }
+
     pub fn get_row(&self, row: usize) -> Result<[Cell; 3]> {
         if !(1..=3).contains(&row) {
             Err(BoardError::RangeError {
@@ -76,19 +88,33 @@ impl Board {
 mod tests {
     use super::*;
 
-    static BOARD: Board = Board {
-        cells: [
-            Cell::Filled(1),
-            Cell::Filled(2),
-            Cell::Filled(3),
-            Cell::Filled(4),
-            Cell::Filled(5),
-            Cell::Filled(6),
-            Cell::Filled(7),
-            Cell::Filled(8),
-            Cell::Filled(9),
-        ],
-    };
+    const CELLS: [Cell; 9] = [
+        Cell::Filled(1),
+        Cell::Filled(2),
+        Cell::Filled(3),
+        Cell::Filled(4),
+        Cell::Filled(5),
+        Cell::Filled(6),
+        Cell::Filled(7),
+        Cell::Filled(8),
+        Cell::Filled(9),
+    ];
+
+    static BOARD: Board = Board { cells: CELLS };
+
+    #[test]
+    fn test_new() {
+        let board = Board::new(CELLS);
+
+        assert_eq!(board.get_cells(), &CELLS);
+    }
+
+    #[test]
+    fn test_empty() {
+        let board = Board::empty();
+
+        assert_eq!(board.get_cells(), &[Cell::Empty; 9]);
+    }
 
     #[test]
     fn test_get_row() {
