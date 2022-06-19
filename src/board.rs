@@ -1,5 +1,5 @@
 mod cell;
-mod errors;
+pub mod errors;
 
 use rand::Rng;
 

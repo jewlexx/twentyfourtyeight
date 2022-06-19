@@ -7,5 +7,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.58"
+console = { version = "0.15.0", features = ["windows-console-colors"] }
+dialoguer = "0.10.1"
+owo-colors = { version = "3.4.0", features = ["supports-colors"] }
 rand = "0.8.5"
 thiserror = "1.0.31"
