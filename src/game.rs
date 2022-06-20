@@ -53,7 +53,7 @@ impl Game {
     }
 
     fn ui<B: Backend>(&self, f: &mut Frame<B>) -> Result<()> {
-        let layout = Layout::default().direction(Direction::Horizontal).conta
+        let layout = Layout::default().direction(Direction::Horizontal);
 
         let block = Block::default();
         let span = Span::from("Hello, world!");

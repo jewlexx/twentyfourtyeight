@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.58"
+bevy = "0.7.0"
 console = { version = "0.15.0", features = ["windows-console-colors"] }
 crossterm = "0.23.2"
 dialoguer = "0.10.1"
