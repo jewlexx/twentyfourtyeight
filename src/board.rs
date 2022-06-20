@@ -1,12 +1,13 @@
+use bevy::prelude::*;
+use rand::Rng;
+
 mod cell;
 pub mod errors;
-
-use rand::Rng;
 
 pub use cell::*;
 use errors::*;
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, Component, PartialEq, Eq)]
 pub struct Board {
     cells: [Cell; 9],
 }

@@ -1,15 +1,11 @@
-use crate::board::Board;
+use std::{error::Error, io};
 
-pub mod errors;
-
-use errors::Result;
-
+use bevy::prelude::*;
 use crossterm::{
     event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
-use std::{error::Error, io};
 use tui::{
     backend::{Backend, CrosstermBackend},
     layout::{Alignment, Constraint, Direction, Layout},
@@ -19,6 +15,13 @@ use tui::{
     Frame, Terminal,
 };
 
+pub mod errors;
+
+use crate::board::Board;
+
+use errors::Result;
+
+#[derive(Debug, Copy, Clone, Component, PartialEq, Eq)]
 pub struct Game {
     board: Board,
 }
@@ -50,6 +53,14 @@ impl Game {
         terminal.show_cursor()?;
 
         Ok(())
+    }
+
+    pub fn get_board(&self) -> &Board {
+        &self.board
+    }
+
+    pub fn get_board_mut(&mut self) -> &mut Board {
+        &mut self.board
     }
 
     fn ui<B: Backend>(&self, f: &mut Frame<B>) -> Result<()> {
