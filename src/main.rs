@@ -4,8 +4,6 @@ mod board;
 mod game;
 
 fn main() -> anyhow::Result<()> {
-    println!("Hello, world!");
-
     App::new()
         .add_plugins(DefaultPlugins)
         .add_startup_system(startup_system)
