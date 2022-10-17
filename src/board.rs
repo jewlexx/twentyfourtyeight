@@ -14,9 +14,9 @@ pub enum Direction {
     Right,
 }
 
-impl Into<Direction> for &str {
-    fn into(self) -> Direction {
-        match self {
+impl From<&str> for Direction {
+    fn from(str: &str) -> Self {
+        match str {
             "up" => Direction::Up,
             "down" => Direction::Down,
             "left" => Direction::Left,
