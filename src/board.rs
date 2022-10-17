@@ -1,8 +1,9 @@
-use anyhow::Result;
 use rand::Rng;
 
 mod cell;
 pub mod errors;
+
+use errors::*;
 
 pub use cell::*;
 
