@@ -1,10 +1,29 @@
+use anyhow::Result;
 use rand::Rng;
 
 mod cell;
 pub mod errors;
 
 pub use cell::*;
-use errors::*;
+
+pub enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
+impl Into<Direction> for &str {
+    fn into(self) -> Direction {
+        match self.as_ref() {
+            "up" => Direction::Up,
+            "down" => Direction::Down,
+            "left" => Direction::Left,
+            "right" => Direction::Right,
+            _ => panic!("Invalid direction"),
+        }
+    }
+}
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Board {
@@ -19,6 +38,8 @@ impl Board {
     pub const fn empty() -> Self {
         Board::new([Cell::Empty; 9])
     }
+
+    pub fn update(&mut self) {}
 
     pub fn gen_new() -> Result<Self> {
         let mut board = Board::empty();
