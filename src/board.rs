@@ -9,9 +9,13 @@ pub use cell::*;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Direction {
+    /// 7->4->1 & 8->5->2 & 9->6->3
     Up,
+    /// 1->4->7 & 2->5->8 & 3->6->9
     Down,
+    /// 1->2->3 & 4->5->6 & 7->8->9
     Left,
+    /// 3->2->1 & 6->5->4 & 9->8->7
     Right,
 }
 
