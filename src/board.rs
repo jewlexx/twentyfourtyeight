@@ -7,6 +7,7 @@ use errors::*;
 
 pub use cell::*;
 
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Direction {
     Up,
     Down,
@@ -40,7 +41,9 @@ impl Board {
         Board::new([Cell::Empty; 9])
     }
 
-    pub fn update(&mut self) {}
+    pub fn update(&mut self, direction: impl Into<Direction>) {
+        let direction: Direction = direction.into();
+    }
 
     pub fn gen_new() -> Result<Self> {
         let mut board = Board::empty();
