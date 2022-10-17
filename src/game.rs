@@ -1,12 +1,10 @@
-use bevy::prelude::*;
-
 pub mod errors;
 
 use crate::board::Board;
 
 use errors::Result;
 
-#[derive(Debug, Copy, Clone, Component, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Game {
     board: Board,
 }
