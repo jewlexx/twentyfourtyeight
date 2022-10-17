@@ -6,6 +6,12 @@ pub enum Cell {
     Empty,
 }
 
+impl Default for Cell {
+    fn default() -> Self {
+        Cell::new()
+    }
+}
+
 impl Cell {
     pub fn new() -> Self {
         let mut cell = Self::empty();
@@ -49,6 +55,7 @@ impl Cell {
     }
 }
 
+#[cfg(test)]
 mod tests {
     use super::*;
 
