@@ -16,7 +16,7 @@ pub enum Direction {
 
 impl Into<Direction> for &str {
     fn into(self) -> Direction {
-        match self.as_ref() {
+        match self {
             "up" => Direction::Up,
             "down" => Direction::Down,
             "left" => Direction::Left,
