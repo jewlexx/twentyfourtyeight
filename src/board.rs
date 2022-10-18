@@ -72,6 +72,14 @@ impl Board {
         Board::new([Cell::Empty; 16])
     }
 
+    fn move_y(&mut self, direction: &Direction) {
+        match direction {
+            Direction::Up => {}
+            Direction::Down => {}
+            _ => panic!("Invalid direction for Y axis"),
+        }
+    }
+
     pub fn update(&mut self, direction: impl Into<Direction>) -> Result<()> {
         let direction: Direction = direction.try_into()?;
         let axis: Axis = direction.into();
@@ -124,6 +132,16 @@ impl Board {
         &self.cells
     }
 
+    pub fn get_rows(&self) -> Result<[[Cell; 4]; 4]> {
+        let mut rows = [[Cell::Empty; 4]; 4];
+
+        for (i, row) in rows.iter_mut().enumerate() {
+            *row = self.get_row(i + 1)?;
+        }
+
+        Ok(rows)
+    }
+
     pub fn get_row(&self, row: usize) -> Result<[Cell; 4]> {
         if !(ROCOLRANGE).contains(&row) {
             Err(BoardError::RangeError {
@@ -136,6 +154,16 @@ impl Board {
             let row = &self.cells[(row - 1) * 4..row * 4];
             Ok([row[0], row[1], row[2], row[3]])
         }
+    }
+
+    pub fn get_columns(&self) -> Result<[[Cell; 4]; 4]> {
+        let mut columns = [[Cell::Empty; 4]; 4];
+
+        for (i, row) in columns.iter_mut().enumerate() {
+            *row = self.get_column(i + 1)?;
+        }
+
+        Ok(columns)
     }
 
     pub fn get_column(&self, column: usize) -> Result<[Cell; 4]> {
