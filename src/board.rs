@@ -86,20 +86,12 @@ impl Board {
                                 continue;
                             }
 
-                            let mut k = j;
-
-                            while k > 0 {
-                                let previous_cell = previous[k - 1];
-
-                                if previous_cell.is_empty() {
-                                    self.cells[(k - 1) * 4 + i] = *cell;
-                                    self.cells[k * 4 + i] = Cell::Empty;
-                                } else if previous_cell == *cell {
-                                    self.cells[(k - 1) * 4 + i] = *cell * 2;
-                                    self.cells[k * 4 + i] = Cell::Empty;
-                                }
-
-                                k -= 1;
+                            if column[i] == *cell {
+                                self.cells[j * 4 + i] = Cell::Empty;
+                                self.cells[j * 4 + i - 1] = match cell.get_value() {
+                                    Some(value) => Cell::Filled(value * 2),
+                                    None => Cell::Empty,
+                                };
                             }
                         }
                     }
