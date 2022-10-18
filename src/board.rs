@@ -333,6 +333,7 @@ mod tests {
         assert_eq!(BOARD.get_row(2), Ok(rows[1]));
         assert_eq!(BOARD.get_row(3), Ok(rows[2]));
         assert_eq!(BOARD.get_row(4), Ok(rows[3]));
+        assert_eq!(BOARD.get_rows(), Ok(rows));
 
         assert_eq!(
             BOARD.get_row(5),
@@ -377,6 +378,8 @@ mod tests {
         assert_eq!(BOARD.get_column(2), Ok(columns[1]));
         assert_eq!(BOARD.get_column(3), Ok(columns[2]));
         assert_eq!(BOARD.get_column(4), Ok(columns[3]));
+        assert_eq!(BOARD.get_columns(), Ok(columns));
+
         assert_eq!(
             BOARD.get_column(5),
             Err(BoardError::RangeError {
