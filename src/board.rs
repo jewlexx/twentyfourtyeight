@@ -309,15 +309,39 @@ mod tests {
     fn test_get_column() {
         assert_eq!(
             BOARD.get_column(1),
-            Ok([Cell::Filled(1), Cell::Filled(4), Cell::Filled(7)])
+            Ok([
+                Cell::Filled(1),
+                Cell::Filled(5),
+                Cell::Filled(9),
+                Cell::Filled(13)
+            ])
         );
         assert_eq!(
             BOARD.get_column(2),
-            Ok([Cell::Filled(2), Cell::Filled(5), Cell::Filled(8)])
+            Ok([
+                Cell::Filled(2),
+                Cell::Filled(6),
+                Cell::Filled(10),
+                Cell::Filled(14)
+            ])
         );
         assert_eq!(
             BOARD.get_column(3),
-            Ok([Cell::Filled(3), Cell::Filled(6), Cell::Filled(9)])
+            Ok([
+                Cell::Filled(3),
+                Cell::Filled(7),
+                Cell::Filled(11),
+                Cell::Filled(15)
+            ])
+        );
+        assert_eq!(
+            BOARD.get_column(4),
+            Ok([
+                Cell::Filled(4),
+                Cell::Filled(8),
+                Cell::Filled(12),
+                Cell::Filled(16)
+            ])
         );
         assert_eq!(
             BOARD.get_column(4),
