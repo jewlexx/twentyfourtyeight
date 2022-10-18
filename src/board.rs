@@ -132,7 +132,7 @@ impl Board {
         }
     }
 
-    pub fn get_column(&self, column: usize) -> Result<[Cell; 3]> {
+    pub fn get_column(&self, column: usize) -> Result<[Cell; 4]> {
         if !(1..=3).contains(&column) {
             Err(BoardError::RangeError {
                 min: 1,
@@ -142,8 +142,9 @@ impl Board {
         } else {
             Ok([
                 self.cells[column - 1],
-                self.cells[column + 2],
-                self.cells[column + 5],
+                self.cells[column + 3],
+                self.cells[column + 7],
+                self.cells[column + 11],
             ])
         }
     }
