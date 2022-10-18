@@ -140,12 +140,8 @@ impl Board {
         Ok(board)
     }
 
-    pub fn get_filled(&self) -> Vec<Cell> {
-        self.cells
-            .iter()
-            .filter(|c| c.is_filled())
-            .copied()
-            .collect()
+    pub fn get_filled(&self) -> Vec<&Cell> {
+        self.cells.iter().filter(|c| c.is_filled()).collect()
     }
 
     pub fn get_filled_count(&self) -> usize {
