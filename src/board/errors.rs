@@ -20,6 +20,9 @@ pub enum BoardError {
 
     #[error("Found invalid direction {direction}")]
     InvalidDirection { direction: String },
+
+    #[error("Failed with conversion")]
+    ConversionError(#[from] std::convert::Infallible),
 }
 
 #[derive(Debug, AsError, PartialEq, Eq)]

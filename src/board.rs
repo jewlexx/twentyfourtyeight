@@ -49,8 +49,10 @@ impl Board {
         Board::new([Cell::Empty; 9])
     }
 
-    pub fn update(&mut self, direction: impl Into<Direction>) {
-        let direction: Direction = direction.into();
+    pub fn update(&mut self, direction: impl Into<Direction>) -> Result<()> {
+        let direction: Direction = direction.try_into()?;
+
+        Ok(())
     }
 
     pub fn gen_new() -> Result<Self> {
