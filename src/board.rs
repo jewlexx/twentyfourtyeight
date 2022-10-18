@@ -68,6 +68,7 @@ impl Board {
 
     pub fn update(&mut self, direction: impl Into<Direction>) -> Result<()> {
         let direction: Direction = direction.try_into()?;
+        let axis: Axis = direction.into();
 
         Ok(())
     }
