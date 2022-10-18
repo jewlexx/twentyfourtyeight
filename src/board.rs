@@ -29,7 +29,7 @@ impl TryFrom<&str> for Direction {
             "left" => Ok(Direction::Left),
             "right" => Ok(Direction::Right),
             _ => Err(BoardError::InvalidDirection {
-                direction: str.clone(),
+                direction: str.to_string(),
             }),
         }
     }
