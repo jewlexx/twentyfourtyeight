@@ -27,6 +27,15 @@ pub enum Axis {
     Y,
 }
 
+impl From<Direction> for Axis {
+    fn from(direction: Direction) -> Self {
+        match direction {
+            Direction::Up | Direction::Down => Axis::Y,
+            Direction::Left | Direction::Right => Axis::X,
+        }
+    }
+}
+
 impl TryFrom<&str> for Direction {
     type Error = BoardError;
 
