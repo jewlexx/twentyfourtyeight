@@ -37,16 +37,16 @@ impl TryFrom<&str> for Direction {
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Board {
-    cells: [Cell; 9],
+    cells: [Cell; 16],
 }
 
 impl Board {
-    pub const fn new(cells: [Cell; 9]) -> Self {
+    pub const fn new(cells: [Cell; 16]) -> Self {
         Board { cells }
     }
 
     pub const fn empty() -> Self {
-        Board::new([Cell::Empty; 9])
+        Board::new([Cell::Empty; 16])
     }
 
     pub fn update(&mut self, direction: impl Into<Direction>) -> Result<()> {
@@ -96,11 +96,11 @@ impl Board {
         self.get_filled().len()
     }
 
-    pub const fn get_cells(&self) -> &[Cell; 9] {
+    pub const fn get_cells(&self) -> &[Cell; 16] {
         &self.cells
     }
 
-    pub fn get_row(&self, row: usize) -> Result<[Cell; 3]> {
+    pub fn get_row(&self, row: usize) -> Result<[Cell; 4]> {
         if !(1..=3).contains(&row) {
             Err(BoardError::RangeError {
                 min: 1,
@@ -110,7 +110,7 @@ impl Board {
         } else {
             // Forces the array to be sized
             let row = &self.cells[(row - 1) * 3..row * 3];
-            Ok([row[0], row[1], row[2]])
+            Ok([row[0], row[1], row[2], row[4]])
         }
     }
 
@@ -198,7 +198,7 @@ mod tests {
 
     // Rust incorrectly warns about dead code in the following two declarations
     #[allow(dead_code)]
-    const CELLS: [Cell; 9] = [
+    const CELLS: [Cell; 16] = [
         Cell::Filled(1),
         Cell::Filled(2),
         Cell::Filled(3),
@@ -208,6 +208,13 @@ mod tests {
         Cell::Filled(7),
         Cell::Filled(8),
         Cell::Filled(9),
+        Cell::Filled(10),
+        Cell::Filled(11),
+        Cell::Filled(12),
+        Cell::Filled(13),
+        Cell::Filled(14),
+        Cell::Filled(15),
+        Cell::Filled(16),
     ];
 
     #[allow(dead_code)]
@@ -237,22 +244,37 @@ mod tests {
     fn test_empty() {
         let board = Board::empty();
 
-        assert_eq!(board.get_cells(), &[Cell::Empty; 9]);
+        assert_eq!(board.get_cells(), &[Cell::Empty; 16]);
     }
 
     #[test]
     fn test_get_row() {
         assert_eq!(
             BOARD.get_row(1),
-            Ok([Cell::Filled(1), Cell::Filled(2), Cell::Filled(3)])
+            Ok([
+                Cell::Filled(1),
+                Cell::Filled(2),
+                Cell::Filled(3),
+                Cell::Filled(4)
+            ])
         );
         assert_eq!(
             BOARD.get_row(2),
-            Ok([Cell::Filled(4), Cell::Filled(5), Cell::Filled(6)])
+            Ok([
+                Cell::Filled(5),
+                Cell::Filled(6),
+                Cell::Filled(7),
+                Cell::Filled(8)
+            ])
         );
         assert_eq!(
             BOARD.get_row(3),
-            Ok([Cell::Filled(7), Cell::Filled(8), Cell::Filled(9)])
+            Ok([
+                Cell::Filled(9),
+                Cell::Filled(10),
+                Cell::Filled(11),
+                Cell::Filled(12)
+            ])
         );
         assert_eq!(
             BOARD.get_row(4),
