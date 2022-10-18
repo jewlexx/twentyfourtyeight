@@ -75,11 +75,13 @@ impl Board {
     fn move_y(&mut self, direction: &Direction) -> Result<()> {
         let columns = self.get_columns()?;
 
-        match direction {
-            Direction::Up => {}
-            Direction::Down => {}
-            _ => return Err(BoardError::InvalidMoveDirection(*direction, Axis::Y)),
-        };
+        for (i, column) in columns.iter().enumerate() {
+            match direction {
+                Direction::Up => {}
+                Direction::Down => {}
+                _ => return Err(BoardError::InvalidMoveDirection(*direction, Axis::Y)),
+            };
+        }
 
         Ok(())
     }
