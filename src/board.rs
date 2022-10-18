@@ -159,7 +159,7 @@ impl Board {
     pub fn get_random_empty(&mut self) -> &mut Cell {
         let mut rng = rand::thread_rng();
 
-        let mut empty_cells = self.get_empty();
+        let mut empty_cells = self.get_empty_mut();
 
         if empty_cells.is_empty() {
             // TODO: Fix this and return error instead
@@ -186,7 +186,7 @@ impl Board {
     }
 
     pub fn get_empty(&self) -> Vec<&Cell> {
-        self.get_empty_mut()
+        self.cells.iter().filter(|c| c.is_empty()).collect()
     }
 
     pub fn get_empty_count(&self) -> usize {
