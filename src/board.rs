@@ -72,7 +72,9 @@ impl Board {
         Board::new([Cell::Empty; 16])
     }
 
-    fn move_y(&mut self, direction: &Direction) {
+    fn move_y(&mut self, direction: &Direction) -> Result<()> {
+        let columns = self.get_columns()?;
+
         match direction {
             Direction::Up => {}
             Direction::Down => {}
