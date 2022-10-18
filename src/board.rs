@@ -362,8 +362,8 @@ mod tests {
             BOARD.get_cell(4, 4),
             Err(BoardError::RangeError {
                 min: 1,
-                max: 3,
-                value: 4,
+                max: 4,
+                value: 5,
             })
         );
     }
