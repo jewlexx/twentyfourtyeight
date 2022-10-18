@@ -133,7 +133,7 @@ impl Board {
     }
 
     pub fn get_column(&self, column: usize) -> Result<[Cell; 4]> {
-        if !(1..=3).contains(&column) {
+        if !(1..=4).contains(&column) {
             Err(BoardError::RangeError {
                 min: 1,
                 max: 3,
@@ -344,7 +344,7 @@ mod tests {
             ])
         );
         assert_eq!(
-            BOARD.get_column(4),
+            BOARD.get_column(5),
             Err(BoardError::RangeError {
                 min: 1,
                 max: 3,
