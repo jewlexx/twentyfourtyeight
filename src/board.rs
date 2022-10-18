@@ -382,7 +382,7 @@ mod tests {
             Err(BoardError::RangeError {
                 min: ROCOLMIN,
                 max: ROCOLMAX,
-                value: 4,
+                value: 5,
             })
         );
     }
