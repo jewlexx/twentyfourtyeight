@@ -19,14 +19,18 @@ pub enum Direction {
     Right,
 }
 
-impl From<&str> for Direction {
-    fn from(str: &str) -> Self {
+impl TryFrom<&str> for Direction {
+    type Error = BoardError;
+
+    fn try_from(str: &str) -> Result<Self> {
         match str {
-            "up" => Direction::Up,
-            "down" => Direction::Down,
-            "left" => Direction::Left,
-            "right" => Direction::Right,
-            _ => panic!("Invalid direction"),
+            "up" => Ok(Direction::Up),
+            "down" => Ok(Direction::Down),
+            "left" => Ok(Direction::Left),
+            "right" => Ok(Direction::Right),
+            _ => Err(BoardError::InvalidDirection {
+                direction: str.clone(),
+            }),
         }
     }
 }

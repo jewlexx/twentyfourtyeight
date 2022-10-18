@@ -17,6 +17,9 @@ pub enum BoardError {
         column: usize,
         error: CellError,
     },
+
+    #[error("Found invalid direction {direction}")]
+    InvalidDirection { direction: String },
 }
 
 #[derive(Debug, AsError, PartialEq, Eq)]
