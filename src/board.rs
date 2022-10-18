@@ -396,6 +396,7 @@ mod tests {
         assert_eq!(BOARD.get_cell(2, 2), Ok(Cell::Filled(5)));
         assert_eq!(BOARD.get_cell(3, 3), Ok(Cell::Filled(9)));
         assert_eq!(BOARD.get_cell(4, 4), Ok(Cell::Filled(13)));
+        assert_eq!(BOARD.get_cells(), CELLS);
 
         assert_eq!(
             BOARD.get_cell(5, 5),
