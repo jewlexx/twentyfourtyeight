@@ -11,7 +11,7 @@ pub use cell::*;
 
 const ROCOLMIN: usize = 1;
 const ROCOLMAX: usize = 4;
-const ROCOLRANGE: RangeInclusive<usize> = 1..=4;
+const ROCOLRANGE: RangeInclusive<usize> = ROCOLMIN..=ROCOLMAX;
 
 #[derive(Debug, derive_more::Display, Copy, Clone, PartialEq, Eq)]
 pub enum Direction {
@@ -104,6 +104,22 @@ impl Board {
         Ok(())
     }
 
+    fn add_random_cell(&mut self) -> Result<()> {
+        let mut rng = rand::thread_rng();
+
+        let mut empty_cells = self.get_empty();
+
+        if empty_cells.is_empty() {
+            return Ok(());
+        }
+
+        let random_cell = rng.gen_range(0..empty_cells.len());
+
+        // self.cells[empty_cells[random_cell]] = Cell::Filled(2);
+
+        Ok(())
+    }
+
     pub fn update(&mut self, direction: impl Into<Direction>) -> Result<()> {
         let direction: Direction = direction.try_into()?;
         let axis: Axis = direction.into();
@@ -140,11 +156,36 @@ impl Board {
         Ok(board)
     }
 
+    pub fn get_random_empty(&mut self) -> &mut Cell {
+        let mut rng = rand::thread_rng();
+
+        let mut empty_cells = self.get_empty();
+
+        if empty_cells.is_empty() {
+            // TODO: Fix this and return error instead
+            panic!("woops");
+        }
+
+        let random_cell = rng.gen_range(0..empty_cells.len());
+
+        self.cells
+            .get_mut(rng.gen_range(ROCOLMIN..ROCOLMAX.pow(2)))
+            .unwrap()
+    }
+
     pub fn get_filled(&self) -> Vec<&Cell> {
         self.cells.iter().filter(|c| c.is_filled()).collect()
     }
 
     pub fn get_filled_count(&self) -> usize {
+        self.get_filled().len()
+    }
+
+    pub fn get_empty(&self) -> Vec<&Cell> {
+        self.cells.iter().filter(|c| c.is_empty()).collect()
+    }
+
+    pub fn get_empty_count(&self) -> usize {
         self.get_filled().len()
     }
 
