@@ -302,81 +302,81 @@ mod tests {
 
     #[test]
     fn test_get_row() {
-        assert_eq!(
-            BOARD.get_row(1),
-            Ok([
+        let rows = [
+            [
                 Cell::Filled(1),
                 Cell::Filled(2),
                 Cell::Filled(3),
-                Cell::Filled(4)
-            ])
-        );
-        assert_eq!(
-            BOARD.get_row(2),
-            Ok([
+                Cell::Filled(4),
+            ],
+            [
                 Cell::Filled(5),
                 Cell::Filled(6),
                 Cell::Filled(7),
-                Cell::Filled(8)
-            ])
-        );
-        assert_eq!(
-            BOARD.get_row(3),
-            Ok([
+                Cell::Filled(8),
+            ],
+            [
                 Cell::Filled(9),
                 Cell::Filled(10),
                 Cell::Filled(11),
-                Cell::Filled(12)
-            ])
-        );
+                Cell::Filled(12),
+            ],
+            [
+                Cell::Filled(13),
+                Cell::Filled(14),
+                Cell::Filled(15),
+                Cell::Filled(16),
+            ],
+        ];
+
+        assert_eq!(BOARD.get_row(1), Ok(rows[0]));
+        assert_eq!(BOARD.get_row(2), Ok(rows[1]));
+        assert_eq!(BOARD.get_row(3), Ok(rows[2]));
+        assert_eq!(BOARD.get_row(4), Ok(rows[3]));
+
         assert_eq!(
-            BOARD.get_row(4),
+            BOARD.get_row(5),
             Err(BoardError::RangeError {
                 min: ROCOLMIN,
                 max: ROCOLMAX,
-                value: 4,
+                value: 5,
             })
         );
     }
 
     #[test]
     fn test_get_column() {
-        assert_eq!(
-            BOARD.get_column(1),
-            Ok([
+        let columns = [
+            [
                 Cell::Filled(1),
                 Cell::Filled(5),
                 Cell::Filled(9),
-                Cell::Filled(13)
-            ])
-        );
-        assert_eq!(
-            BOARD.get_column(2),
-            Ok([
+                Cell::Filled(13),
+            ],
+            [
                 Cell::Filled(2),
                 Cell::Filled(6),
                 Cell::Filled(10),
-                Cell::Filled(14)
-            ])
-        );
-        assert_eq!(
-            BOARD.get_column(3),
-            Ok([
+                Cell::Filled(14),
+            ],
+            [
                 Cell::Filled(3),
                 Cell::Filled(7),
                 Cell::Filled(11),
-                Cell::Filled(15)
-            ])
-        );
-        assert_eq!(
-            BOARD.get_column(4),
-            Ok([
+                Cell::Filled(15),
+            ],
+            [
                 Cell::Filled(4),
                 Cell::Filled(8),
                 Cell::Filled(12),
-                Cell::Filled(16)
-            ])
-        );
+                Cell::Filled(16),
+            ],
+        ];
+
+        assert_eq!(BOARD.get_column(1), Ok(columns[0]));
+        assert_eq!(BOARD.get_column(2), Ok(columns[1]));
+        assert_eq!(BOARD.get_column(3), Ok(columns[2]));
+        assert_eq!(BOARD.get_column(4), Ok(columns[3]));
         assert_eq!(
             BOARD.get_column(5),
             Err(BoardError::RangeError {
