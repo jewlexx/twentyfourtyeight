@@ -168,9 +168,7 @@ impl Board {
 
         let random_cell = rng.gen_range(0..empty_cells.len());
 
-        empty_cells
-            .get_mut(rng.gen_range(ROCOLMIN..ROCOLMAX.pow(2)))
-            .unwrap()
+        empty_cells[rng.gen_range(ROCOLMIN..ROCOLMAX.pow(2))]
     }
 
     pub fn get_filled(&self) -> Vec<&Cell> {
