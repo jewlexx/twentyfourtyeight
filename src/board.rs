@@ -11,7 +11,7 @@ pub use cell::*;
 
 const ROCOLMIN: usize = 1;
 const ROCOLMAX: usize = 4;
-const ROCOLRANGE: Range<usize> = ROCOLRANGE;
+const ROCOLRANGE: Range<usize> = 1..=4;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Direction {
