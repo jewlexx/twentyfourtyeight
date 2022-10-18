@@ -78,7 +78,7 @@ impl Board {
         match direction {
             Direction::Up => {}
             Direction::Down => {}
-            _ => panic!("Invalid direction for Y axis"),
+            _ => return Err(BoardError::InvalidMoveDirection(*direction, Axis::Y)),
         };
 
         Ok(())
