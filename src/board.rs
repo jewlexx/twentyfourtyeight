@@ -1,3 +1,5 @@
+use std::ops::Range;
+
 use rand::Rng;
 
 mod cell;
@@ -6,6 +8,10 @@ pub mod errors;
 use errors::*;
 
 pub use cell::*;
+
+const ROCOLMIN: usize = 1;
+const ROCOLMAX: usize = 4;
+const ROCOLRANGE: Range<usize> = ROCOLRANGE;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Direction {
@@ -79,8 +85,8 @@ impl Board {
         let mut rng = rand::thread_rng();
 
         let index = {
-            let row = rng.gen_range(1..=3);
-            let column = rng.gen_range(1..=3);
+            let row = rng.gen_range(ROCOLRANGE);
+            let column = rng.gen_range(ROCOLRANGE);
 
             (row, column)
         };
@@ -89,8 +95,8 @@ impl Board {
 
         while second_index == index {
             second_index = {
-                let row = rng.gen_range(1..=3);
-                let column = rng.gen_range(1..=3);
+                let row = rng.gen_range(ROCOLRANGE);
+                let column = rng.gen_range(ROCOLRANGE);
 
                 (row, column)
             };
@@ -119,10 +125,10 @@ impl Board {
     }
 
     pub fn get_row(&self, row: usize) -> Result<[Cell; 4]> {
-        if !(1..=3).contains(&row) {
+        if !(ROCOLRANGE).contains(&row) {
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: row,
             })
         } else {
@@ -133,10 +139,10 @@ impl Board {
     }
 
     pub fn get_column(&self, column: usize) -> Result<[Cell; 4]> {
-        if !(1..=4).contains(&column) {
+        if !(ROCOLRANGE).contains(&column) {
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: column,
             })
         } else {
@@ -150,16 +156,16 @@ impl Board {
     }
 
     pub fn get_cell(&self, row: usize, column: usize) -> Result<Cell> {
-        if !(1..=3).contains(&row) {
+        if !(ROCOLRANGE).contains(&row) {
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: row,
             })
-        } else if !(1..=3).contains(&column) {
+        } else if !(ROCOLRANGE).contains(&column) {
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: column,
             })
         } else {
@@ -168,16 +174,16 @@ impl Board {
     }
 
     pub fn gen_cell(&mut self, row: usize, column: usize) -> Result<()> {
-        if !(1..=3).contains(&row) {
+        if !(ROCOLRANGE).contains(&row) {
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: row,
             })
-        } else if !(1..=3).contains(&column) {
+        } else if !(ROCOLRANGE).contains(&column) {
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: column,
             })
         } else {
@@ -191,16 +197,16 @@ impl Board {
     }
 
     pub fn set_cell(&mut self, row: usize, column: usize, value: Cell) -> Result<()> {
-        if !(1..=3).contains(&row) {
+        if !(ROCOLRANGE).contains(&row) {
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: row,
             })
-        } else if !(1..=3).contains(&column) {
+        } else if !(ROCOLRANGE).contains(&column) {
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: column,
             })
         } else {
@@ -298,8 +304,8 @@ mod tests {
         assert_eq!(
             BOARD.get_row(4),
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: 4,
             })
         );
@@ -346,8 +352,8 @@ mod tests {
         assert_eq!(
             BOARD.get_column(5),
             Err(BoardError::RangeError {
-                min: 1,
-                max: 3,
+                min: ROCOLMIN,
+                max: ROCOLMAX,
                 value: 4,
             })
         );
