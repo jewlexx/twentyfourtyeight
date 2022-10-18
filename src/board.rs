@@ -127,8 +127,8 @@ impl Board {
             })
         } else {
             // Forces the array to be sized
-            let row = &self.cells[(row - 1) * 3..row * 3];
-            Ok([row[0], row[1], row[2], row[4]])
+            let row = &self.cells[(row - 1) * 4..row * 4];
+            Ok([row[0], row[1], row[2], row[3]])
         }
     }
 
