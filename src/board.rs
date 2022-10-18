@@ -13,7 +13,7 @@ const ROCOLMIN: usize = 1;
 const ROCOLMAX: usize = 4;
 const ROCOLRANGE: RangeInclusive<usize> = 1..=4;
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, derive_more::Display, Copy, Clone, PartialEq, Eq)]
 pub enum Direction {
     /// 13->9->5->1 & 14->10->6->2 & 15->11->7->3 & 16->12->8->4
     Up,
@@ -25,7 +25,7 @@ pub enum Direction {
     Right,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, derive_more::Display, Copy, Clone, PartialEq, Eq)]
 pub enum Axis {
     /// Left or Right
     X,
