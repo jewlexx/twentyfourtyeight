@@ -79,7 +79,9 @@ impl Board {
             Direction::Up => {}
             Direction::Down => {}
             _ => panic!("Invalid direction for Y axis"),
-        }
+        };
+
+        Ok(())
     }
 
     pub fn update(&mut self, direction: impl Into<Direction>) -> Result<()> {
