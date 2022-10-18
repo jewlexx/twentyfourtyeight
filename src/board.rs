@@ -77,7 +77,33 @@ impl Board {
 
         for (i, column) in columns.iter().enumerate() {
             match direction {
-                Direction::Up => {}
+                Direction::Up => {
+                    if i != 0 {
+                        let previous = columns[i - 1];
+
+                        for (j, cell) in column.iter().enumerate() {
+                            if cell.is_empty() {
+                                continue;
+                            }
+
+                            let mut k = j;
+
+                            while k > 0 {
+                                let previous_cell = previous[k - 1];
+
+                                if previous_cell.is_empty() {
+                                    self.cells[(k - 1) * 4 + i] = *cell;
+                                    self.cells[k * 4 + i] = Cell::Empty;
+                                } else if previous_cell == *cell {
+                                    self.cells[(k - 1) * 4 + i] = *cell * 2;
+                                    self.cells[k * 4 + i] = Cell::Empty;
+                                }
+
+                                k -= 1;
+                            }
+                        }
+                    }
+                }
                 Direction::Down => {}
                 _ => return Err(BoardError::InvalidMoveDirection(*direction, Axis::Y)),
             };

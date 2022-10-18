@@ -34,9 +34,13 @@ impl Cell {
     }
 
     pub fn is_filled(&self) -> bool {
+        !self.is_empty()
+    }
+
+    pub fn is_empty(&self) -> bool {
         match self {
-            Cell::Filled(_) => true,
-            Cell::Empty => false,
+            Cell::Filled(_) => false,
+            Cell::Empty => true,
         }
     }
 
