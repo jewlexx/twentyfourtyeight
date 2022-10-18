@@ -246,6 +246,8 @@ impl Board {
         }
     }
 
+    // TODO: Add get_cell_mut fn
+
     pub fn get_cell(&self, row: usize, column: usize) -> Result<Cell> {
         if !(ROCOLRANGE).contains(&row) {
             Err(BoardError::RangeError {
