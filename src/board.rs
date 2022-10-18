@@ -19,6 +19,14 @@ pub enum Direction {
     Right,
 }
 
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub enum Axis {
+    /// Left or Right
+    X,
+    /// Up or Down
+    Y,
+}
+
 impl TryFrom<&str> for Direction {
     type Error = BoardError;
 
