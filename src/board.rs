@@ -168,7 +168,7 @@ impl Board {
 
         let random_cell = rng.gen_range(0..empty_cells.len());
 
-        self.cells
+        empty_cells
             .get_mut(rng.gen_range(ROCOLMIN..ROCOLMAX.pow(2)))
             .unwrap()
     }
@@ -181,8 +181,12 @@ impl Board {
         self.get_filled().len()
     }
 
+    pub fn get_empty_mut(&mut self) -> Vec<&mut Cell> {
+        self.cells.iter_mut().filter(|c| c.is_empty()).collect()
+    }
+
     pub fn get_empty(&self) -> Vec<&Cell> {
-        self.cells.iter().filter(|c| c.is_empty()).collect()
+        self.get_empty_mut()
     }
 
     pub fn get_empty_count(&self) -> usize {
