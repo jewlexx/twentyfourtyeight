@@ -168,7 +168,7 @@ impl Board {
 
         let random_cell = rng.gen_range(0..empty_cells.len());
 
-        self.get_cell(row, column)
+        self.get_cell_mut(row, column)
     }
 
     pub fn get_filled(&self) -> Vec<&Cell> {
@@ -246,9 +246,23 @@ impl Board {
         }
     }
 
-    // TODO: Add get_cell_mut fn
+    pub fn get_cell_index_mut(&self, index: usize) -> Result<&mut Cell> {
+        if !(0..16).contains(&index) {
+            Err(BoardError::RangeError {
+                min: 0,
+                max: 15,
+                value: index,
+            })
+        } else {
+            Ok(self.cells.get_mut(index).unwrap())
+        }
+    }
 
-    pub fn get_cell(&self, row: usize, column: usize) -> Result<Cell> {
+    pub fn get_cell_index(&self, index: usize) -> Result<Cell> {
+        Ok(*self.get_cell_index_mut(index)?)
+    }
+
+    pub fn get_cell_mut(&self, row: usize, column: usize) -> Result<&mut Cell> {
         if !(ROCOLRANGE).contains(&row) {
             Err(BoardError::RangeError {
                 min: ROCOLMIN,
@@ -262,8 +276,12 @@ impl Board {
                 value: column,
             })
         } else {
-            Ok(self.cells[(row - 1) * 3 + column - 1])
+            Ok(self.get_cell_index_mut((row - 1) * 3 + column - 1)?)
         }
+    }
+
+    pub fn get_cell(&self, row: usize, column: usize) -> Result<Cell> {
+        Ok(*self.get_cell_mut(row, column)?)
     }
 
     pub fn gen_cell(&mut self, row: usize, column: usize) -> Result<()> {

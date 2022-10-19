@@ -28,6 +28,9 @@ pub enum BoardError {
 
     #[error("Invalid direction {0} for axis {1}")]
     InvalidMoveDirection(Direction, Axis),
+
+    #[error("The cell at {x} {y} does not exist")]
+    InvalidCell { x: usize, y: usize },
 }
 
 #[derive(Debug, AsError, PartialEq, Eq)]
