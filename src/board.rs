@@ -183,6 +183,9 @@ impl Board {
         // 14 = 4-3
         // 15 = 4-4
 
+        // To get row: floor ((index / 4) + 1)
+        // To get column: (index % 4) + 1
+
         let random_cell = rng.gen_range(0..empty_cells.len());
 
         self.get_cell_mut(row, column)
