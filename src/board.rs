@@ -159,7 +159,7 @@ impl Board {
     pub fn get_random_empty(&mut self) -> Result<&mut Cell> {
         let mut rng = rand::thread_rng();
 
-        let mut empty_cells = self.get_empty();
+        let empty_cells = self.get_empty();
 
         if empty_cells.is_empty() {
             // TODO: Fix this and return error instead
@@ -271,7 +271,9 @@ impl Board {
         }
     }
 
-    pub fn get_cell_index_mut(&self, index: usize) -> Result<&mut Cell> {
+    // TODO: Remove duplicate code
+
+    pub fn get_cell_index_mut(&mut self, index: usize) -> Result<&mut Cell> {
         if !(0..16).contains(&index) {
             Err(BoardError::RangeError {
                 min: 0,
@@ -283,11 +285,19 @@ impl Board {
         }
     }
 
-    pub fn get_cell_index(&self, index: usize) -> Result<Cell> {
-        Ok(*self.get_cell_index_mut(index)?)
+    pub fn get_cell_index(&self, index: usize) -> Result<&Cell> {
+        if !(0..16).contains(&index) {
+            Err(BoardError::RangeError {
+                min: 0,
+                max: 15,
+                value: index,
+            })
+        } else {
+            Ok(self.cells.get(index).unwrap())
+        }
     }
 
-    pub fn get_cell_mut(&self, row: usize, column: usize) -> Result<&mut Cell> {
+    pub fn get_cell_mut(&mut self, row: usize, column: usize) -> Result<&mut Cell> {
         if !(ROCOLRANGE).contains(&row) {
             Err(BoardError::RangeError {
                 min: ROCOLMIN,
@@ -305,8 +315,22 @@ impl Board {
         }
     }
 
-    pub fn get_cell(&self, row: usize, column: usize) -> Result<Cell> {
-        Ok(*self.get_cell_mut(row, column)?)
+    pub fn get_cell(&self, row: usize, column: usize) -> Result<&Cell> {
+        if !(ROCOLRANGE).contains(&row) {
+            Err(BoardError::RangeError {
+                min: ROCOLMIN,
+                max: ROCOLMAX,
+                value: row,
+            })
+        } else if !(ROCOLRANGE).contains(&column) {
+            Err(BoardError::RangeError {
+                min: ROCOLMIN,
+                max: ROCOLMAX,
+                value: column,
+            })
+        } else {
+            Ok(self.get_cell_index((row - 1) * 3 + column - 1)?)
+        }
     }
 
     pub fn gen_cell(&mut self, row: usize, column: usize) -> Result<()> {
@@ -326,7 +350,7 @@ impl Board {
             let mut cell = self.get_cell(row, column)?;
             cell.gen_filled_cell();
 
-            self.set_cell(row, column, cell)?;
+            self.set_cell(row, column, *cell)?;
 
             Ok(())
         }
