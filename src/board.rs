@@ -156,7 +156,7 @@ impl Board {
         Ok(board)
     }
 
-    pub fn get_random_empty(&mut self) -> &mut Cell {
+    pub fn get_random_empty(&mut self) -> Result<&mut Cell> {
         let mut rng = rand::thread_rng();
 
         let mut empty_cells = self.get_empty_mut();
