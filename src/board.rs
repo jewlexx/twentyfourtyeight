@@ -159,12 +159,29 @@ impl Board {
     pub fn get_random_empty(&mut self) -> Result<&mut Cell> {
         let mut rng = rand::thread_rng();
 
-        let mut empty_cells = self.get_empty_mut();
+        let mut empty_cells = self.get_empty();
 
         if empty_cells.is_empty() {
             // TODO: Fix this and return error instead
             panic!("woops");
         }
+
+        // 0 = 1-1
+        // 1 = 1-2
+        // 2 = 1-3
+        // 3 = 1-4
+        // 4 = 2-1
+        // 5 = 2-2
+        // 6 = 2-3
+        // 7 = 2-4
+        // 8 = 3-1
+        // 9 = 3-2
+        // 10 = 3-3
+        // 11 = 3-4
+        // 12 = 4-1
+        // 13 = 4-2
+        // 14 = 4-3
+        // 15 = 4-4
 
         let random_cell = rng.gen_range(0..empty_cells.len());
 
