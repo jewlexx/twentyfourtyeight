@@ -186,12 +186,14 @@ impl Board {
         // To get row: floor ((index / 4) + 1)
         // To get column: (index % 4) + 1
 
+        // TODO: Remove unsafe type conversions
+
         let random_cell = rng.gen_range(0..empty_cells.len()) as f32;
 
         let row = (random_cell / 4.) + 1.;
         let column = (random_cell % 4.) + 1.;
 
-        self.get_cell_mut(row, column)
+        self.get_cell_mut(row.floor() as usize, column.floor() as usize)
     }
 
     pub fn get_filled(&self) -> Vec<&Cell> {
